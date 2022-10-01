@@ -126,7 +126,7 @@ def papers2CSV(dataArray, author_id):
     fields.append('author_match')
     fields.append('orcid_match')
         
-    with open(author_id+'.tsv', 'w', encoding='UTF8') as file:
+    with open('data/'+author_id+'.tsv', 'w', encoding='UTF8') as file:
         dw = csv.writer(file, delimiter='\t')
         dw.writerow(fields)
         dw.writerows(data)
@@ -167,7 +167,7 @@ def papers2JSON(dataArray, author_id):
         
         papersJSON[paper.bibcode] = dict_row
       
-    with open(author_id+".json", "w", encoding='utf-8') as outfile:
+    with open('data/'+author_id+".json", "w", encoding='utf-8') as outfile:
         json.dump(papersJSON, outfile, ensure_ascii=False)
     
     return True
