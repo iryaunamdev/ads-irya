@@ -8,9 +8,8 @@ import csv
 from datetime import datetime
 from fuzzywuzzy import process
 from unidecode import unidecode
-import pandas as pd
 
-
+ads.config.token ="LaMEJM2RdjlrmUgl3m7G5brYVmW7vHB243uAfS9j"
 # Fields to retrive from ADS query
 fields = [
     "bibcode",
@@ -28,8 +27,7 @@ fields = [
     "citation_count",
     "doctype",
     "orcid",
-    "property"
-    
+    "property"   
 ]
 
 papersByAuthor = []
@@ -54,42 +52,25 @@ def query_author(author:str)->list:
     papers = list(
         ads.SearchQuery(
             q=f"author:{author}",
+            database=f"astronomy",
             fl=fields,
             rows=2000,
             sort="date+desc",
         )
     )
     return papers
-
-def makeRow(data):
-    pass
 
 def query_orcid(orcid:str)->list:
     papers = list(
         ads.SearchQuery(
             q=f"orcid:{orcid}",
+            database=f"astronomy",
             fl=fields,
             rows=2000,
             sort="date+desc",
         )
     )
     return papers
-
-def unificatedPapers(papersListA, papersListB):
-    unificated = []
-    for paperA in papersListA:
-        for paperB in papersListB:
-            match_paper: False
-            if paperA.bibcode == paperB.bibcode:
-                match_paper = True
-                break
-        if match_paper:
-            unificated.append(paperB)
-        else:
-            unificated.append(paperB)
-            unificated.append(paperA)
-        
-    return unificated
 
 def papers2CSV(dataArray, author_id):
     data = []
@@ -133,7 +114,7 @@ def papers2CSV(dataArray, author_id):
     
     return True
     
-def papers2JSON(dataArray, author_id):
+def papers2JSON(dataArray, filename):
     papersJSON = {}
     for paper in dataArray:
         values = [
@@ -167,7 +148,7 @@ def papers2JSON(dataArray, author_id):
         
         papersJSON[paper.bibcode] = dict_row
       
-    with open('data/'+author_id+".json", "w", encoding='utf-8') as outfile:
+    with open('data/'+filename+".json", "w", encoding='utf-8') as outfile:
         json.dump(papersJSON, outfile, ensure_ascii=False)
     
     return True
@@ -199,14 +180,12 @@ if __name__=="__main__":
         #Get papers search
         papersByAuthor= query_author(fuzzy(author[2], squeeze=False))
         print("papersByAuthor: ", len(papersByAuthor), end=" ")
+        papers2JSON(papersByAuthor, "author_"+author[0])
+        papers2CSV(papersByAuthor, "author_"+author[0])
         if author[1]:
             papersByOrcid =query_orcid(author[1])
             print("papersByOrcid: ", len(papersByOrcid), end=" ")
-            papersAll = unificatedPapers(papersByAuthor, papersByOrcid)
-        else:
-            papersAll = papersByAuthor          
-        print("papersAll: ", len(papersAll), end=" ")
+            papers2JSON(papersByOrcid, "orcid_"+author[0])
+            papers2CSV(papersByOrcid, "orcid_"+author[0])
         
-        papers2JSON(papersAll, author[0])
-        papers2CSV(papersAll, author[0])
         print()
