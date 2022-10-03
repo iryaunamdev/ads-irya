@@ -76,7 +76,6 @@ def papers2CSV(dataArray, author_id):
     data = []
     for paper in dataArray:
         values = [
-                paper.id,
                 paper.bibcode,
                 paper.title,
                 paper.author,
@@ -118,7 +117,6 @@ def papers2JSON(dataArray, filename):
     papersJSON = {}
     for paper in dataArray:
         values = [
-                paper.id,
                 paper.bibcode,
                 paper.title,
                 paper.author,
