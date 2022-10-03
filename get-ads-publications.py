@@ -26,7 +26,7 @@ fields = [
     "citation",
     "citation_count",
     "doctype",
-    "orcid",
+    "orcid_user",
     "property"   
 ]
 
@@ -90,14 +90,14 @@ def papers2CSV(dataArray, author_id):
                 paper.citation,
                 paper.citation_count,
                 paper.doctype,
-                paper.orcid,
+                paper.orcid_user,
                 paper.property
             ]
         choices = paper.author
         author_match_score = process.extractOne(fuzzy(author[2], squeeze=False), choices)
         values.append(author_match_score)
                 
-        choices = paper.orcid
+        choices = paper.orcid_user
         orcid_match_score = process.extractOne(author[1], choices)
         values.append(orcid_match_score)
         
@@ -131,7 +131,7 @@ def papers2JSON(dataArray, filename):
                 paper.citation,
                 paper.citation_count,
                 paper.doctype,
-                paper.orcid,
+                paper.orcid_user,
                 paper.property
             ]
         dict_row = dict(zip(fields, values))
@@ -140,7 +140,7 @@ def papers2JSON(dataArray, filename):
         author_match_score = process.extractOne(fuzzy(author[2], squeeze=False), choices)
         dict_row['match_author'] = author_match_score
         
-        choices = paper.orcid
+        choices = paper.orcid_user
         orcid_match_score = process.extractOne(author[1], choices)
         dict_row['match_orcid'] = orcid_match_score
         
@@ -149,8 +149,7 @@ def papers2JSON(dataArray, filename):
     with open('data/'+filename+".json", "w", encoding='utf-8') as outfile:
         json.dump(papersJSON, outfile, ensure_ascii=False)
     
-    return True
-        
+    return True        
 
 if __name__=="__main__":
     try:
@@ -185,5 +184,5 @@ if __name__=="__main__":
             print("papersByOrcid: ", len(papersByOrcid), end=" ")
             papers2JSON(papersByOrcid, "orcid_"+author[0])
             papers2CSV(papersByOrcid, "orcid_"+author[0])
-        
+           
         print()
