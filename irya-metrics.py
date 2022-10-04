@@ -1,37 +1,37 @@
 import json
 import sys
+import pandas as pd
 
-def consolidatePapers(papersA, papersO):
-    papers = {}
-    for key, paper in papersO.items():
-        papers[key] = paper
-    
-    for key, paper in papersA.items():
-        if key not in papers:
-            papers[key] = paper
-    
-    return papers
-        
-IRYA_LIST = sys.argv[1]
-author_list_file = open(IRYA_LIST, 'r')
+"""
+Script for generate metrics by author (total_articles, citations, normalized_citations, h-index)
+into a json and txt file
+"""
+
+AUTHOR_LIST = sys.argv[1]
+author_list_file = open(AUTHOR_LIST, 'r')
 author_list = author_list_file.read().split('\n')
 
-papersA = {}
-papersO = {}
-papersAll = {}
+data_metrics = []
 
 for author in author_list:
     author = author.split('|')
-    print(author)
-    with open('data/author_'+author[0]+'.json') as json_file:
-        papersA = json.load(json_file)
-    if author[1]:
-        with open('data/orcid_'+author[0]+'.json') as json_file:
-            papersO = json.load(json_file)
-        papersAll = consolidatePapers(papersA, papersO)
-    else:
-        papersAll = papersA 
+    with open('data/'+author[0]+'.json') as json_file:
+        papers = json.load(json_file)
     
-    for bibcode, paper in papersAll.items():
-        print(bibcode, paper['match_orcid'])
-    
+    row_metrics = {}
+    t_art = 0
+    t_art_ref = 0
+    t_citas = 0
+    t_citas_norm = 0
+    h_index = 0
+    cites_list = []
+    for bibcode, paper in papers.items():
+      if 'NOT REFEREED' not in paper['property']:
+          t_art += 1 
+          t_citas += paper['citation_count']
+          t_authors = len(paper['author'])
+          cita_norm = paper['citation_count']/t_authors
+          t_citas_norm += cita_norm 
+          cites_list.append(int(paper['citation_count']))
+          h_index = gethindex(cites_list)
+
