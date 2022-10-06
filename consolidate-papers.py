@@ -22,14 +22,13 @@ IRYA_LIST = sys.argv[1]
 author_list_file = open(IRYA_LIST, 'r')
 author_list = author_list_file.read().split('\n')
 
-papersA = {}
-papersO = {}
-papersAll = {}
-
-print(datetime.now())
-
+papersIRyA = {}
 for author in author_list:
     author = author.split('|')
+    papersA = {}
+    papersO = {}
+    papersAll = {}
+    
     with open('data/author_'+author[0]+'.json') as json_file:
         papersA = json.load(json_file)
     if author[1]:
@@ -40,7 +39,9 @@ for author in author_list:
         papersAll = papersA 
         
     print(author, "papersByauthor:", len(papersA), 'papersByOrcid', len(papersO), 'consolidatedPapers', len(papersAll))
+    
+    papersIRyA[author[0]] = papersAll
 
-    with open('data/'+author[0]+".json", "w", encoding='utf-8') as outfile:
-        json.dump(papersAll, outfile, ensure_ascii=False)   
+    with open("data/papers_irya.json", "w", encoding='utf-8') as outfile:
+        json.dump(papersIRyA, outfile, ensure_ascii=False)   
     

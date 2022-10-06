@@ -27,7 +27,8 @@ fields = [
     "citation_count",
     "doctype",
     "orcid_user",
-    "property"   
+    "property",
+    "keyword_norm" 
 ]
 
 papersByAuthor = []
@@ -91,10 +92,11 @@ def papers2CSV(dataArray, author_id):
                 paper.citation_count,
                 paper.doctype,
                 paper.orcid_user,
-                paper.property
+                paper.property,
+                paper.keyword_norm
             ]
         choices = paper.author
-        author_match_score = process.extractOne(fuzzy(author[2], squeeze=False), choices)
+        author_match_score = process.extractOne(author[2], choices)
         values.append(author_match_score)
                 
         choices = paper.orcid_user
@@ -132,12 +134,14 @@ def papers2JSON(dataArray, filename):
                 paper.citation_count,
                 paper.doctype,
                 paper.orcid_user,
-                paper.property
+                paper.property,
+                paper.keyword_norm
+                
             ]
         dict_row = dict(zip(fields, values))
         
         choices = paper.author
-        author_match_score = process.extractOne(fuzzy(author[2], squeeze=False), choices)
+        author_match_score = process.extractOne(author[2], choices)
         dict_row['match_author'] = author_match_score
         
         choices = paper.orcid_user
