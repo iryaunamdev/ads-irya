@@ -9,7 +9,6 @@ import ads
 import html
 import re
 import os
-from numpy import squeeze
 from unidecode import unidecode
 
 ads.config.token  = "LaMEJM2RdjlrmUgl3m7G5brYVmW7vHB243uAfS9j"
