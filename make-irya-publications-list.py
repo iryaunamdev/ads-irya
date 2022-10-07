@@ -32,8 +32,8 @@ from typing import Tuple  # required for earlier python versions
 import ads
 from unidecode import unidecode
 
-PUB_LIST_FILE = "publication_list2.php"
-LATEST_PUB_FILE = "latest_publication2.php"
+PUB_LIST_FILE = "publication_list.php"
+LATEST_PUB_FILE = "latest_publication.php"
 DIAGNOSTIC_FILE = "nonstandard_variants.txt"
 
 

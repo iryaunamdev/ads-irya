@@ -1,0 +1,27 @@
+['01', '0000-0002-5456-4472', 'Arthur, Sarah Jane', '85'] papersByauthor: 83 papersByOrcid 81 consolidatedPapers 85
+['02', '0000-0002-1081-9445', 'Ballesteros-Paredes, Javier', '85'] papersByauthor: 107 papersByOrcid 105 consolidatedPapers 107
+['03', '0000-0002-6971-5755', 'Bruzual, Gustavo', '74'] papersByauthor: 291 papersByOrcid 145 consolidatedPapers 292
+['04', '0000-0003-2862-5363', 'Carrasco-Gonzalez, Carlos', '84'] papersByauthor: 114 papersByOrcid 102 consolidatedPapers 114
+['05', '0000-0002-2897-9121', 'Cervántes-Sodi, Bernardo', '85'] papersByauthor: 37 papersByOrcid 7 consolidatedPapers 37
+['06', '0000-0003-3031-8784', 'Chávez, Ricardo', '79'] papersByauthor: 40 papersByOrcid 28 consolidatedPapers 40
+['07', '', 'Escalante, Vladimir', '90'] papersByauthor: 43 papersByOrcid 0 consolidatedPapers 43
+['08', '0000-0002-7042-1965', 'Fritz, Jacopo', '90'] papersByauthor: 411 papersByOrcid 213 consolidatedPapers 411
+['09', '0000-0003-1480-4643', 'Galván-Madrid, Roberto', '80'] papersByauthor: 141 papersByOrcid 110 consolidatedPapers 141
+['10', '', 'Gazol, Adriana', '90'] papersByauthor: 41 papersByOrcid 0 consolidatedPapers 41
+['11', '0000-0003-0516-2968', 'Gill, Ramandeep', '90'] papersByauthor: 88 papersByOrcid 10 consolidatedPapers 88
+['12', '0000-0003-4714-0636', 'Gómez, Gilberto Carlos', '63', '90,77'] papersByauthor: 151 papersByOrcid 47 consolidatedPapers 151
+['13', '0000-0001-7090-4142', 'González, Ricardo Francisco', '78', '90,81'] papersByauthor: 213 papersByOrcid 0 consolidatedPapers 213
+['14', '0000-0003-1557-4931', 'González-LopezLira, Rosa Amelia', '79'] papersByauthor: 53 papersByOrcid 2 consolidatedPapers 53
+['15', '0000-0002-2356-8358', 'González-Martín, Omaira', '82'] papersByauthor: 155 papersByOrcid 15 consolidatedPapers 157
+['16', '0000-0001-6208-9109', 'Henney, William John', '86'] papersByauthor: 106 papersByOrcid 105 consolidatedPapers 106
+['17', '0000-0002-2640-5917', 'Jiménez-Andrade, Eric Faustino', '84'] papersByauthor: 43 papersByOrcid 14 consolidatedPapers 43
+['18', '0000-0003-4444-5602', 'Kurtz, Stanley', '72'] papersByauthor: 223 papersByOrcid 20 consolidatedPapers 228
+['19', '0000-0002-2260-7677', 'Lizano, Susana', '90'] papersByauthor: 163 papersByOrcid 72 consolidatedPapers 163
+['20', '0000-0002-5635-3345', 'Loinard, Laurent', '90'] papersByauthor: 297 papersByOrcid 83 consolidatedPapers 297
+['21', '0000-0002-9569-9234', 'Palau, Aina', '84'] papersByauthor: 149 papersByOrcid 37 consolidatedPapers 149
+['22', '0000-0003-1933-4636', 'Pasetto, Alice', '84'] papersByauthor: 20 papersByOrcid 7 consolidatedPapers 20
+['23', '', 'Rodríguez, Luis Felipe', '72', '90'] papersByauthor: 1018 papersByOrcid 0 consolidatedPapers 1018
+['24', '0000-0002-2996-305X', 'Srinivasan, Sundar', '86'] papersByauthor: 171 papersByOrcid 128 consolidatedPapers 172
+['25', '0000-0002-5406-0813', 'Toalá, Jesús Alberto', '63'] papersByauthor: 106 papersByOrcid 48 consolidatedPapers 106
+['26', '0000-0002-1424-3543', 'Vázquez-Semadeni, Enrique', '84'] papersByauthor: 183 papersByOrcid 7 consolidatedPapers 183
+['27', '', 'Zapata, Luis Alberto', '84'] papersByauthor: 143 papersByOrcid 0 consolidatedPapers 143

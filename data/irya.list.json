@@ -1,0 +1,199 @@
+{
+    "01": {
+        "id":"01",
+        "orcid": "0000-0002-5456-4472",
+        "author": "Arthur, Sarah Jane",
+        "umbral": 85,
+        "umbral_descarte": []
+    },
+    "03": {
+        "id":"03",
+        "orcid": "0000-0002-6971-5755",
+        "author": "Bruzual, Gustavo",
+        "umbral": 74,
+        "umbral_descarte": []
+    },
+    "02": {
+        "id":"02",
+        "orcid": "0000-0002-1081-9445",
+        "author": "Ballesteros-Paredes, Javier",
+        "umbral": 85,
+        "umbral_descarte": []
+    },
+    "05": {
+        "id":"05",
+        "orcid": "0000-0002-2897-9121",
+        "author": "Cervántes-Sodi, Bernardo",
+        "umbral": 80,
+        "umbral_descarte": []
+    },
+    "04": {
+        "id":"04",
+        "orcid": "0000-0003-2862-5363",
+        "author": "Carrasco-Gonzalez, Carlos",
+        "umbral": 84,
+        "umbral_descarte": []
+    },
+    "07": {
+        "id":"07",
+        "orcid": [],
+        "author": "Escalante, Vladimir",
+        "umbral": 90,
+        "umbral_descarte": []
+    },
+    "06": {
+        "id":"06",
+        "orcid": "0000-0003-3031-8784",
+        "author": "Chávez, Ricardo}",
+        "umbral": 79,
+        "umbral_descarte": []
+    },
+    "09": {
+        "id":"09",
+        "orcid": "0000-0003-1480-4643",
+        "author": "Galván-Madrid, Roberto",
+        "umbral": 80,
+        "umbral_descarte": []
+    },
+    "08": {
+        "id":"08",
+        "orcid": "0000-0002-7042-1965",
+        "author": "Fritz, Jacopo",
+        "umbral": 90,
+        "umbral_descarte": []
+    },
+    "10": {
+        "id":"10",
+        "orcid": [],
+        "author": "Gazol, Adriana",
+        "umbral": 90,
+        "umbral_descarte": []
+    },
+    "11": {
+        "id":"11",
+        "orcid": "0000-0003-0516-2968",
+        "author": "Gill, Ramandeep",
+        "umbral": 90,
+        "umbral_descarte": []
+    },
+    "12": {
+        "id":"12",
+        "orcid": "0000-0003-4714-0636",
+        "author": "Gómez, Gilberto Carlos",
+        "umbral": 63,
+        "umbral_descarte": [
+            90,
+            77
+        ]
+    },
+    "13": {
+        "id":"13",
+        "orcid": "0000-0001-7090-4142",
+        "author": "González, Ricardo Francisco",
+        "umbral": 78,
+        "umbral_descarte": [
+            90,
+            81
+        ]
+    },
+    "14": {
+        "id":"14",
+        "orcid": "0000-0003-1557-4931",
+        "author": "González-LopezLira, Rosa Amelia",
+        "umbral": 79,
+        "umbral_descarte": []
+    },
+    "15": {
+        "id":"15",
+        "orcid": "0000-0002-2356-8358",
+        "author": "González-Martín, Omaira",
+        "umbral": 82,
+        "umbral_descarte": []
+    },
+    "16": {
+        "id":"16",
+        "orcid": "0000-0001-6208-9109",
+        "author": "Henney, William John",
+        "umbral": 86,
+        "umbral_descarte": []
+    },
+    "17": {
+        "id":"17",
+        "orcid": "0000-0002-2640-5917",
+        "author": "Jiménez-Andrade, Eric Faustino",
+        "umbral": 84,
+        "umbral_descarte": []
+    },
+    "18": {
+        "id":"18",
+        "orcid": "0000-0003-4444-5602",
+        "author": "Kurtz, Stanley",
+        "umbral": 72,
+        "umbral_descarte": []
+    },
+    "19": {
+        "id":"19",
+        "orcid": "0000-0002-2260-7677",
+        "author": "Lizano, Susana",
+        "umbral": 90,
+        "umbral_descarte": []
+    },
+    "20": {
+        "id":"20",
+        "orcid": "0000-0002-5635-3345",
+        "author": "Loinard, Laurent",
+        "umbral": 90,
+        "umbral_descarte": []
+    },
+    "21": {
+        "id":"21",
+        "orcid": "0000-0002-9569-9234",
+        "author": "Palau, Aina",
+        "umbral": 84,
+        "umbral_descarte": []
+    },
+    "22": {
+        "id":"22",
+        "orcid": "0000-0003-1933-4636",
+        "author": "Pasetto, Alice",
+        "umbral": 84,
+        "umbral_descarte": []
+    },
+    "23": {
+        "id":"23",
+        "orcid": [],
+        "author": "Rodríguez, Luis Felipe",
+        "umbral": 72,
+        "umbral_descarte": [
+            90
+        ]
+    },
+    "24": {
+        "id":"24",
+        "orcid": "0000-0002-2996-305X",
+        "author": "Srinivasan, Sundar",
+        "umbral": 86,
+        "umbral_descarte": []
+    },
+    "25": {
+        "id":"25",
+        "orcid": "0000-0002-5406-0813",
+        "author": "Toalá, Jesús Alberto",
+        "umbral": 63,
+        "umbral_descarte": []
+    },
+    "26": {
+        "id":"26",
+        "orcid": "0000-0002-1424-3543",
+        "author": "Vázquez-Semadeni, Enrique",
+        "umbral": 84,
+        "umbral_descarte": []
+    },
+    "27": {
+        "id":"27",
+        "orcid": [],
+        "author": "Zapata, Luis Alberto",
+        "umbral": 84,
+        "umbral_descarte": []
+    }
+}
