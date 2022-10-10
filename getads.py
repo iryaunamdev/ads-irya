@@ -104,10 +104,11 @@ def papers2JSON(papers):
         
     return papersJSON
 
-def search_query(SEARCH_MODE, OPTIONS, year):
+def search_query(SEARCH_MODE, OPTIONS, Y_START, Y_END):
     if "R" in OPTIONS.split("="):
         search_options = " AND property:refereed"
                    
+    year=''
     if "--aff" in SEARCH_MODE:
         print(SEARCH_MODE, end=" ")
         search_mode = SEARCH_MODE.replace('--', '')
@@ -199,21 +200,21 @@ if __name__=="__main__":
         if Y_END < Y_START:
             sys.exit(f"[Y_START] should before [Y_END]")   
             
-    for year in range(Y_START, Y_END+1):
-        print("Año: ", year, end=" ")
-        search_mode, filename,  papers = search_query(SEARCH_MODE, OPTIONS, year)
-        print("Found:", len(papers), end=" ")
-        papers_json = papers2JSON(papers)
+    print(f"Año: {Y_START}-{Y_END}", end=" ")
+    search_mode, filename,  papers = search_query(SEARCH_MODE, OPTIONS, Y_START, Y_END)
+    print("Found:", len(papers), end=" ")
+    papers_json = papers2JSON(papers)
 
-        if len(papers):
-            isExist = os.path.exists(OUTPUT_DIR+'/'+search_mode)
+    if len(papers):
+        isExist = os.path.exists(OUTPUT_DIR+'/'+search_mode)
 
-            if not isExist:  
-                os.makedirs(OUTPUT_DIR+'/'+search_mode)
-                
-            print("Saving JSON file...", end=" ")
-            #generate JSON files
-            with open(f"{OUTPUT_DIR}/{search_mode}/{AUTHOR_ID}_{filename}.json", "w+", encoding='utf-8') as outfile:
-                json.dump(papers_json, outfile, ensure_ascii=False)
-            print("Finish", end="\n")
-        print()
+    if not isExist:  
+        os.makedirs(OUTPUT_DIR+'/'+search_mode)
+                    
+    print("Saving JSON file...", end=" ")
+    #generate JSON files
+    with open(f"{OUTPUT_DIR}/{search_mode}/{AUTHOR_ID}_{filename}.json", "w+", encoding='utf-8') as outfile:
+        json.dump(papers_json, outfile, ensure_ascii=False)
+    print("Finish", end="\n")
+    
+    
