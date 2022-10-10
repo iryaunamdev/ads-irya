@@ -5,7 +5,7 @@ Script for discovery an work with ADS records
 **getadsby.py**
 
 for search by affiliation 
-python getads.py --aff [-opt=R] [--start=2001] [--end=2003]
+python getads.py --aff [-opt=R] [--start=2001] [--end=2003] [--output_dir=]
 
 --opt=R #for sesrch only refereed papers
 --start=year_start_search #if left blank 2003 for default

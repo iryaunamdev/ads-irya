@@ -1,20 +1,20 @@
 {
-    "01": {
-        "id":"01",
+    "04": {
+        "id":"04",
         "orcid": "0000-0002-5456-4472",
         "author": "Arthur, Sarah Jane",
         "umbral": 85,
         "umbral_descarte": []
     },
-    "03": {
-        "id":"03",
+    "07": {
+        "id":"07",
         "orcid": "0000-0002-6971-5755",
         "author": "Bruzual, Gustavo",
         "umbral": 74,
         "umbral_descarte": []
     },
-    "02": {
-        "id":"02",
+    "06": {
+        "id":"06",
         "orcid": "0000-0002-1081-9445",
         "author": "Ballesteros-Paredes, Javier",
         "umbral": 85,

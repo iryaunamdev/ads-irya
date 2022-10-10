@@ -1,6 +1,6 @@
 """
 Script for find IRyA publications from ADS database
-search by affiliation/author and years period range
+search by affiliation/author/orcid and years period range
 """
 from datetime import datetime
 import sys
@@ -167,8 +167,8 @@ if __name__=="__main__":
     OPTIONS=""
     SEARCH_MODE = ""
     AUTHOR_ID = 0
-    Y_START = 2003
-    Y_END = datetime.today().year
+    Y_START = 0
+    Y_END = 0
     OUTPUT_DIR ="data"
     
     for arg in sys.argv:
@@ -181,7 +181,7 @@ if __name__=="__main__":
         
     for arg in sys.argv:
         if arg.split("=")[0] == "--id":
-            AUTHOR_ID = arg      
+            AUTHOR_ID = arg.split("=")[1]      
     
     for arg in sys.argv:
         if arg.split("=")[0] == "--start":
@@ -213,7 +213,7 @@ if __name__=="__main__":
                 
             print("Saving JSON file...", end=" ")
             #generate JSON files
-            with open(f"{OUTPUT_DIR}/{search_mode}/{AUTHOR_ID.split('=')[1]}_{filename}.json", "w+", encoding='utf-8') as outfile:
+            with open(f"{OUTPUT_DIR}/{search_mode}/{AUTHOR_ID}_{filename}.json", "w+", encoding='utf-8') as outfile:
                 json.dump(papers_json, outfile, ensure_ascii=False)
             print("Finish", end="\n")
         print()
