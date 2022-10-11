@@ -6,10 +6,9 @@ from datetime import datetime
 import sys
 import json
 import ads
-import html
-import re
 import os
 from unidecode import unidecode
+from adsfunctions import fuzzy
 
 ads.config.token  = "LaMEJM2RdjlrmUgl3m7G5brYVmW7vHB243uAfS9j"
 
