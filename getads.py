@@ -1,14 +1,111 @@
-"""
-Script for find IRyA publications from ADS database
-search by affiliation/author/orcid and years period range
-"""
-from datetime import datetime
 import sys
-import json
 import ads
 import os
-from unidecode import unidecode
-from adsfunctions import fuzzy
+import adsfunctions
+
+def papers2JSON(papers):
+    papersJSON = {}
+    for paper in papers:
+        values = [
+                paper.bibcode,
+                paper.title,
+                paper.author,
+                paper.aff,
+                paper.aff_id,
+                paper.year,
+                paper.pub,
+                paper.volume,
+                paper.page,
+                paper.pubdate,
+                paper.date,
+                paper.bibstem,
+                paper.citation,
+                paper.citation_count,
+                paper.doctype,
+                paper.orcid_user,
+                paper.property,
+                paper.keyword_norm      
+            ]
+        dict_row = dict(zip(fields, values))
+        papersJSON[paper.bibcode] = dict_row
+    return papersJSON
+
+
+def search_query_aff(year, search_options):
+    affstring = "(" + " OR ".join([f'"{_}"' for _ in aff_variants]) + ")"
+    affstring2 = "(" + " OR ".join(unam_variants) + ")"
+    if year:
+        papers = list(
+            ads.SearchQuery(
+                q=f"aff:{affstring}",
+                fq=f"aff:{affstring2}"+search_options,
+                database=f"astronomy",
+                fl=fields,
+                year=f"{year}",
+                rows=2000,
+                sort="date+desc",
+            )
+        )
+    else:
+        papers = list(
+            ads.SearchQuery(
+                q=f"aff:{affstring}",
+                fq=f"aff:{affstring2}"+search_options,
+                database=f"astronomy",
+                fl=fields,
+                rows=2000,
+                sort="date+desc",
+            )
+        )
+    return papers
+        
+def search_query_author(author, year, search_options):
+    if year:
+        papers = list(
+            ads.SearchQuery(
+                q=f"author:{author}",
+                database=f"astronomy",
+                fl=fields,
+                year=f"{year}",
+                rows=2000,
+                sort="date+desc",
+            )
+        )
+    else:
+        papers = list(
+            ads.SearchQuery(
+                q=f"author:{author}",
+                database=f"astronomy",
+                fl=fields,
+                rows=2000,
+                sort="date+desc",
+            )
+        )
+    return papers
+
+def search_query_orcid(orcid, year, search_options):
+    if year:
+        papers = list(
+            ads.SearchQuery(
+                q=f"orcid:{orcid}",
+                database=f"astronomy",
+                fl=fields,
+                year=f"{year}",
+                rows=2000,
+                sort="date+desc",
+            )
+        )
+    else:
+        papers = list(
+            ads.SearchQuery(
+                q=f"orcid:{orcid}",
+                database=f"astronomy",
+                fl=fields,
+                rows=2000,
+                sort="date+desc",
+            )
+        )
+    return papers
 
 ads.config.token  = "LaMEJM2RdjlrmUgl3m7G5brYVmW7vHB243uAfS9j"
 
@@ -51,173 +148,58 @@ unam_variants = [
     "Morelia",
 ]
 
-def fuzzy(s, squeeze=True):
-    """Transform string for a fuzzy comparison
+SEARCH_MODE = ""
+OPTIONS = ""
+Y_START = 0
+Y_END = 0
+WORKDIR = ""
 
-    1. Decode HTML entities: "&amp;" -> "&"
-    2. Eliminate accents: "Astrofísica" -> "Astrofisica"
-    3. Fold case: "Astrofísica" -> "astrofisica"
-    4. If optional argument `squeeze` is True, then remove
-       non-word characters: "onom&ia y astro" -> "onomiayastro"
-    """
-    rslt = unidecode(html.unescape(s)).casefold()
-    if squeeze:
-        rslt = re.sub(r"\W", "", rslt)
-    return rslt
-
-def papers2JSON(papers):
-    papersJSON = {}
-    for paper in papers:
-        values = [
-                paper.bibcode,
-                paper.title,
-                paper.author,
-                paper.aff,
-                paper.aff_id,
-                paper.year,
-                paper.pub,
-                paper.volume,
-                paper.page,
-                paper.pubdate,
-                paper.date,
-                paper.bibstem,
-                paper.citation,
-                paper.citation_count,
-                paper.doctype,
-                paper.orcid_user,
-                paper.property,
-                paper.keyword_norm      
-            ]
+for arg in sys.argv:
+    if "--aff" in arg or "--author" in arg or "--orcid" in arg:
+        SEARCH_MODE = arg
+    elif "--workdir" in arg:
+        WORKDIR = arg.split("=")[1]
+    elif "--opt" in arg:
+        OPTIONS = arg.split('=')[1]
+        OPTIONS = OPTIONS.split()
+    elif "--start" in arg:
+        Y_START = arg.split("=")[1]
+    elif "--end" in arg:
+        Y_END = arg.split("=")[1]
         
-        dict_row = dict(zip(fields, values))
-        """
-        choices = paper.author
-        author_match_score = process.extractOne(author[2], choices)
-        dict_row['match_author'] = author_match_score
+if SEARCH_MODE == "" or WORKDIR=="":
+        sys.exit("ERROR: WORKDIR or SEARCH_MODE necessary")             
+if Y_END < Y_START:
+        sys.exit(f"[Y_START] should before [Y_END]")
         
-        choices = paper.orcid_user
-        orcid_match_score = process.extractOne(author[1], choices)
-        dict_row['match_orcid'] = orcid_match_score
-        """
-        papersJSON[paper.bibcode] = dict_row
+search_options = ""
+if "R" in OPTIONS:
+    search_options = " AND property:refereed"
+papers = {}       
+for year in range(Y_START, Y_END+1):
+    print(SEARCH_MODE, end=" ")
+    if '--aff' in SEARCH_MODE:
+        papers =  search_query_aff(year, search_options)
+        filename = f"{year}_irya"
+    elif '--author' in SEARCH_MODE:
+        SEARCH_MODE, author = SEARCH_MODE.split("=")
+        if author:
+            papers=search_query_author(author, year, search_options)
+            filename = f"{year}_{adsfunctions.fuzzy(author)}"
+    elif '--orcid' in SEARCH_MODE:
+        SEARCH_MODE, orcid = SEARCH_MODE.split("=")
+        if orcid:
+            papers=search_query_orcid(orcid, year, search_options)
+            filename = f"{year}_{orcid}"
+    
+    print("Found:", len(papers), end=" ")
+    if len(papers): 
+        papers_json = papers2JSON(papers)
         
-    return papersJSON
-
-def search_query(SEARCH_MODE, OPTIONS, year):
-    if "R" in OPTIONS.split("="):
-        search_options = " AND property:refereed"
-    
-    if not year:               
-        year=''
+        isExist = os.path.exists(f"{WORKDIR}/{SEARCH_MODE.replace('--', '')}")
+        if not isExist:  
+            os.makedirs(f"{WORKDIR}/{SEARCH_MODE.replace('--', '')}")
         
-    if "--aff" in SEARCH_MODE:
-        print(SEARCH_MODE, end=" ")
-        search_mode = SEARCH_MODE.replace('--', '')
-        filename = year
-        affstring = "(" + " OR ".join([f'"{_}"' for _ in aff_variants]) + ")"
-        affstring2 = "(" + " OR ".join(unam_variants) + ")"
-        papers = list(
-            ads.SearchQuery(
-                q=f"aff:{affstring}",
-                fq=f"aff:{affstring2}"+search_options,
-                database=f"astronomy",
-                fl=fields,
-                year=f"{year}",
-                rows=2000,
-                sort="date+desc",
-            )
-        )            
-        
-    elif "--author" in SEARCH_MODE:
-        search_mode = SEARCH_MODE.split('=')[0].replace('--', '')
-        print(SEARCH_MODE, end=" ")
-        print(AUTHOR_ID, end=" ")
-        author = SEARCH_MODE.split('=')[1]
-        filename = str(year)+'_'+fuzzy(author)
-        papers = list(
-            ads.SearchQuery(
-                q=f"author:{author}",
-                database=f"astronomy",
-                fl=fields,
-                year=f"{year}",
-                rows=2000,
-                sort="date+desc",
-            )
-        )
-
-    elif "--orcid" in SEARCH_MODE:
-        print(SEARCH_MODE, end=" ")
-        search_mode = SEARCH_MODE.split('=')[0].replace('--', '')
-        orcid = SEARCH_MODE.split('=')[1]
-        print(AUTHOR_ID, end=" ")
-        filename = str(year)+'_'+orcid
-        papers = list(
-            ads.SearchQuery(
-                q=f"orcid:{orcid}",
-                database=f"astronomy",
-                fl=fields,
-                year=f"{year}",
-                rows=2000,
-                sort="date+desc",
-            )
-        )
-    
-    return search_mode, filename, papers
-    
-
-if __name__=="__main__":
-    OPTIONS=""
-    SEARCH_MODE = ""
-    AUTHOR_ID = 0
-    Y_START = 0
-    Y_END = 0
-    OUTPUT_DIR ="data"
-    
-    for arg in sys.argv:
-        if arg.split("=")[0] == "--opt":
-            OPTIONS = arg            
-   
-    for arg in sys.argv:
-        if arg.split("=")[0] == "--aff" or  arg.split("=")[0] == "--author" or  arg.split("=")[0] == "--orcid":
-            SEARCH_MODE = arg
-        
-    for arg in sys.argv:
-        if arg.split("=")[0] == "--id":
-            AUTHOR_ID = arg.split("=")[1]      
-    
-    for arg in sys.argv:
-        if arg.split("=")[0] == "--start":
-            Y_START = int(arg.split("=")[1])
-        
-    for arg in sys.argv:
-        if arg.split("=")[0] == "--end":
-            Y_END = int(arg.split("=")[1])
-    
-    for arg in sys.argv:
-        if arg.split("=")[0] == "--output_dir":
-            OUTPUT_DIR = arg.split("=")[1]             
-         
-    if Y_START and Y_END:
-        if Y_END < Y_START:
-            sys.exit(f"[Y_START] should before [Y_END]")   
-        
-        for year in range(Y_START, Y_END+1):  
-            print(f"Año: {Y_START}-{Y_END}", end=" ")
-            search_mode, filename,  papers = search_query(SEARCH_MODE, OPTIONS, year)
-            print("Found:", len(papers), end=" ")
-            papers_json = papers2JSON(papers)
-
-            if len(papers):
-                isExist = os.path.exists(OUTPUT_DIR+'/'+search_mode)
-
-            if not isExist:  
-                os.makedirs(OUTPUT_DIR+'/'+search_mode)
-                            
-            print("Saving JSON file...", end=" ")
-            #generate JSON files
-            filename = f"{AUTHOR_ID}_year" if year else AUTHOR_ID
-            with open(f"{OUTPUT_DIR}/{search_mode}/{filename}.json", "w+", encoding='utf-8') as outfile:
-                json.dump(papers_json, outfile, ensure_ascii=False)
-            print("Finish", end="\n")
-    
-    
+        print("Saving JSON file...", end=" ")
+        adsfunctions.writeJSON(papers_json, f"{WORKDIR}/{SEARCH_MODE.replace('--', '')}/{filename}.json")
+    print("Finish", end="\n")
