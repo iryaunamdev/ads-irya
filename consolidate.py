@@ -13,6 +13,8 @@ python consolidate.py [--author] [--aff] --workdir=WORKDIR
 import sys
 import os
 import json
+
+from numpy import squeeze
 import adsfunctions
 
 
@@ -27,8 +29,6 @@ CONSOLIDATE_FILE = "irya_papers.json"
 DESCARTED_FILE = "descarted.json"
 
 aff_variants = [
-    "UNAM",
-    "Mexico",
     "Morelia",
     "CRyA",
     "IRyA",
@@ -90,8 +90,8 @@ if S_MODE == "--author":
                             consolidated_papers[bibcode]['author_mark'] = []   
                             
                         #add id for siiaa user owners
-                        if id not in consolidated_papers[bibcode]['author_siiaa']:
-                            consolidated_papers[bibcode]['author_siiaa'].append(id)
+                        if int(id) not in consolidated_papers[bibcode]['author_siiaa']:
+                            consolidated_papers[bibcode]['author_siiaa'].append(int(id))
                         
                         #add index for local authors to be marked in strong
                         mark_id = adsfunctions.markAuthor(paper['author'], evaluated_paper['match_author'][0])
@@ -129,8 +129,8 @@ if S_MODE == "--author":
                             consolidated_papers[bibcode]['author_mark'] = []
                             
                         #add id for siiaa user owners
-                        if id not in consolidated_papers[bibcode]['author_siiaa']:
-                            consolidated_papers[bibcode]['author_siiaa'].append(id)
+                        if int(id) not in consolidated_papers[bibcode]['author_siiaa']:
+                            consolidated_papers[bibcode]['author_siiaa'].append(int(id))
                         
                         #add index for local authors to be marked in strong
                         print(evaluated_paper['match_author'])
@@ -149,4 +149,34 @@ if S_MODE == "--author":
     adsfunctions.writeJSON(descarted_papers, f"{WORKDIR}/{DESCARTED_FILE}")
     adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/{CONSOLIDATE_FILE}")
 elif S_MODE == "--aff":
-    pass
+    #Read everyfile in WORKDIR/aff
+    for filename in os.listdir(f"{WORKDIR}/aff"):
+        papers_aff = adsfunctions.readJSON(f"{WORKDIR}/aff/{filename}")
+        for bibcode, paper in papers_aff.items():
+            #print(bibcode, )
+            if not bibcode in consolidated_papers.keys():
+                consolidated_papers[bibcode] = paper
+                        
+                #Create keys if not exists
+                if 'author_siiaa' not in consolidated_papers[bibcode].keys():
+                    consolidated_papers[bibcode]['author_siiaa'] = []
+                if 'author_mark' not in consolidated_papers[bibcode].keys():
+                    consolidated_papers[bibcode]['author_mark'] = []
+                
+                #Get aff author list
+                aff_author_list = adsfunctions.markAuthorAff(paper, aff_variants)
+                consolidated_papers[bibcode]['author_mark'] = aff_author_list
+                
+                #realation aff_author - siiaa user
+                siiaa_authors = []
+                for aff_author in aff_author_list:
+                    author = adsfunctions.fuzzy(paper['author'][aff_author].split(',')[0], squeeze=False)
+                    print(author)
+                    for id, data in author_list.items():
+                        surname = adsfunctions.fuzzy(data['author'].split(',')[0], squeeze=False)
+                        if surname == author:
+                            siiaa_authors.append(int(id))
+                                            
+                consolidated_papers[bibcode]['author_siiaa'] = siiaa_authors
+    adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/aff/{CONSOLIDATE_FILE}")                    
+               

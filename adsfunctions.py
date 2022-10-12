@@ -8,7 +8,19 @@ def markAuthor(authors, author_match):
     for i, author in enumerate(authors):
         if author_match in author:
             return i
-    return -1   
+    return -1
+
+def markAuthorAff(paper, aff_variants):
+    n_marked = []
+    for i, [author, aff] in enumerate(zip(paper['author'], paper['aff'])):
+        for variant in aff_variants:
+            if fuzzy(variant) in fuzzy(aff):
+                #paper.author[i] = f"<strong>{author}</strong>"
+                if i not in n_marked:
+                    n_marked.append(i)
+                # Stop checking variants. Advance to next author
+                break
+    return n_marked   
 
 def evaluation(paper, data, aff_variants):
     eval = {}
