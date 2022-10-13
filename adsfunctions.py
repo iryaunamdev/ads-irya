@@ -53,17 +53,30 @@ def evaluation(paper, data):
     eval['author'] = paper['author']
     eval['aff'] = paper['aff']
     eval['match_author'] = process.extractOne(data['author'], paper['author'])
+        
     if data['orcid']:
         eval['match_orcid'] = process.extractOne(data['orcid'], paper['orcid_user'])
     else:
         eval['match_orcid'] = ()
+    
     matched_orcid = matchOrcid(eval['match_orcid'])
     matched_author = matchAuthor(eval['match_author'][1], data['umbral'], data['umbral_descarte'])
-    matched_aff = matchAff(paper, aff_variants)
-    eval['evaluation'] = (matched_orcid, matched_author, matched_aff)
+    matched_aff = matchAff(paper)
+    eval['evaluation'] = (matched_orcid, matched_author, matched_aff) 
+    
     if matched_aff or matched_orcid or matched_author:
+        if matched_orcid or matched_aff:
+            eval['value'] = 100
+        elif matched_author and matched_aff:
+            eval['value'] = 100
+        elif matched_author and matched_orcid:
+            eval['value'] = 100
+        elif matched_author:
+            eval['value'] = 70
+        
         return True, eval
     else:
+        eval['value'] = 0
         return False, eval
     
 def readJSON(FILENAME):

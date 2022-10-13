@@ -82,13 +82,13 @@ if S_MODE == "--author":
                         if mark_id >= 0 and mark_id not in consolidated_papers[bibcode]['author_mark']:
                             consolidated_papers[bibcode]['author_mark'].append(mark_id)
                         
-                        evaluation_log.write(f"{id}\t\t{bibcode}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
+                        evaluation_log.write(f"{id}\t\t{bibcode}\t{evaluated_paper['value']}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
                     
                     #if paper is dismissed then
                     else:
                         if not bibcode in descarted_papers.keys():
                             descarted_papers[bibcode] = paper
-                        evaluation_log.write(f"{id}\t-\t{bibcode}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
+                        evaluation_log.write(f"{id}\t-\t{bibcode}\t{evaluated_paper['value']}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
                         depurated_log.write(f"  -{bibcode} {evaluated_paper['evaluation']} {evaluated_paper['match_orcid']} {evaluated_paper['match_author']}")
         
         #Read everyfile in WORKDIR/orcid
@@ -121,11 +121,13 @@ if S_MODE == "--author":
                         mark_id = adsfunctions.markAuthor(paper['author'], evaluated_paper['match_author'][0])
                         if mark_id >= 0 and mark_id not in consolidated_papers[bibcode]['author_mark']:
                             consolidated_papers[bibcode]['author_mark'].append(mark_id)
-                    
+                        evaluation_log.write(f"{id}\t\t{bibcode}\t{evaluated_paper['value']}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
+                        
                     #if paper is dismissed then
                     else:
                         if not bibcode in descarted_papers.keys():
                             descarted_papers[bibcode] = paper
+                        evaluation_log.write(f"{id}\t\t{bibcode}\t{evaluated_paper['value']}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
                         depurated_log.write(f"  -{bibcode} {evaluated_paper['evaluation']} {evaluated_paper['match_orcid']} {evaluated_paper['match_author']}\n")
         
         evaluation_papers[id] = evaluated_papers_author
@@ -155,7 +157,6 @@ elif S_MODE == "--aff":
                 siiaa_authors = []
                 for aff_author in aff_author_list:
                     author = adsfunctions.fuzzy(paper['author'][aff_author].split(',')[0], squeeze=False)
-                    print(author)
                     for id, data in author_list.items():
                         surname = adsfunctions.fuzzy(data['author'].split(',')[0], squeeze=False)
                         if surname == author:

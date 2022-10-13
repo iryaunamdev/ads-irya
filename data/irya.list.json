@@ -92,10 +92,11 @@
         "orcid": "0000-0003-4714-0636",
         "author": "Gómez, Gilberto Carlos",
         "y_unam":2005,
-        "umbral": 63,
+        "umbral": 58,
         "umbral_descarte": [
             90,
-            77
+            79,
+            72
         ]
     },
     "16": {
@@ -106,7 +107,8 @@
         "umbral": 78,
         "umbral_descarte": [
             90,
-            81
+            82,
+            79
         ]
     },
     "17": {
@@ -114,7 +116,7 @@
         "orcid": "0000-0003-1557-4931",
         "author": "González-LopezLira, Rosa Amelia",
         "y_unam":1978,
-        "umbral": 79,
+        "umbral": 78,
         "umbral_descarte": []
     },
     "18": {
@@ -186,7 +188,7 @@
         "orcid": "",
         "author": "Rodríguez, Luis Felipe",
         "umbral": 72,
-        "y_unam":1974,
+        "y_unam":1979,
         "umbral_descarte": [
             90
         ]
