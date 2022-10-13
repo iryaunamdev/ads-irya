@@ -12,11 +12,7 @@ python consolidate.py [--author] [--aff] --workdir=WORKDIR
 
 import sys
 import os
-import json
-
-from numpy import squeeze
 import adsfunctions
-
 
 WORKDIR = ""
 S_MODE = ""
@@ -27,18 +23,6 @@ DEPURATED_LOG_FILE = "depurated.log"
 EVENTS_LOG_FILE = "consolidated_events.log"
 CONSOLIDATE_FILE = "irya_papers.json"
 DESCARTED_FILE = "descarted.json"
-
-aff_variants = [
-    "Morelia",
-    "CRyA",
-    "IRyA",
-    "Radioastronomía y Astrofísica",
-    "Radiostronomía y Astrofísica",  # Ricardo Gonzalez paper
-    "Radioastronomí a y Astrofí sica",  # For Gustavo Bruzual 2021 paper
-    "Radioastronomía y Astrofísca",  # Stan paper
-    "Radioastronomía y Astrofsica",  # In anticipapation
-    "Radioastromomía y Astrofísica",  # Just in case
-]
 
 # Extract args into vars
 for arg in sys.argv[1::]:
@@ -74,7 +58,7 @@ if S_MODE == "--author":
             if adsfunctions.fuzzy(data['author']) in filename:
                 papers_author = adsfunctions.readJSON(f"{WORKDIR}/author/{filename}")
                 for bibcode, paper in papers_author.items():
-                    _is, evaluated_paper = adsfunctions.evaluation(paper, data, aff_variants)
+                    _is, evaluated_paper = adsfunctions.evaluation(paper, data)
                     evaluated_papers_author[bibcode] = evaluated_paper
                     
                     #if paper is evaluated and passed then add
@@ -113,7 +97,7 @@ if S_MODE == "--author":
             if data['orcid'] and data['orcid'] in filename:
                 papers_orcid = adsfunctions.readJSON(f"{WORKDIR}/orcid/{filename}")
                 for bibcode, paper in papers_orcid.items():
-                    _is, evaluated_paper = adsfunctions.evaluation(paper, data, aff_variants)
+                    _is, evaluated_paper = adsfunctions.evaluation(paper, data)
                     evaluated_papers_author[bibcode] = evaluated_paper
                     
                     #if paper is evaluated and passed then add
@@ -164,7 +148,7 @@ elif S_MODE == "--aff":
                     consolidated_papers[bibcode]['author_mark'] = []
                 
                 #Get aff author list
-                aff_author_list = adsfunctions.markAuthorAff(paper, aff_variants)
+                aff_author_list = adsfunctions.markAuthorAff(paper)
                 consolidated_papers[bibcode]['author_mark'] = aff_author_list
                 
                 #realation aff_author - siiaa user
@@ -179,4 +163,3 @@ elif S_MODE == "--aff":
                                             
                 consolidated_papers[bibcode]['author_siiaa'] = siiaa_authors
     adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/aff/{CONSOLIDATE_FILE}")                    
-               

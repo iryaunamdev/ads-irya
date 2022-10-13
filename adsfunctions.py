@@ -4,16 +4,41 @@ import json
 from fuzzywuzzy import process
 from unidecode import unidecode
 
+aff_variants = [
+    "UNAM",
+    "Mexico"
+    "Morelia",
+    "CRyA",
+    "IRyA",
+    "Radioastronomía y Astrofísica",
+    "Radiostronomía y Astrofísica",  # Ricardo Gonzalez paper
+    "Radioastronomí a y Astrofí sica",  # For Gustavo Bruzual 2021 paper
+    "Radioastronomía y Astrofísca",  # Stan paper
+    "Radioastronomía y Astrofsica",  # In anticipapation
+    "Radioastromomía y Astrofísica",  # Just in case
+]
+
+irya_variants =[
+    "CRyA",
+    "IRyA",
+    "Radioastronomía y Astrofísica",
+    "Radiostronomía y Astrofísica",  # Ricardo Gonzalez paper
+    "Radioastronomí a y Astrofí sica",  # For Gustavo Bruzual 2021 paper
+    "Radioastronomía y Astrofísca",  # Stan paper
+    "Radioastronomía y Astrofsica",  # In anticipapation
+    "Radioastromomía y Astrofísica",  # Just in case
+]
+
 def markAuthor(authors, author_match):
     for i, author in enumerate(authors):
         if author_match in author:
             return i
     return -1
 
-def markAuthorAff(paper, aff_variants):
+def markAuthorAff(paper):
     n_marked = []
     for i, [author, aff] in enumerate(zip(paper['author'], paper['aff'])):
-        for variant in aff_variants:
+        for variant in irya_variants:
             if fuzzy(variant) in fuzzy(aff):
                 #paper.author[i] = f"<strong>{author}</strong>"
                 if i not in n_marked:
@@ -22,7 +47,7 @@ def markAuthorAff(paper, aff_variants):
                 break
     return n_marked   
 
-def evaluation(paper, data, aff_variants):
+def evaluation(paper, data):
     eval = {}
     eval['orcid_user'] = paper['orcid_user']
     eval['author'] = paper['author']
@@ -49,7 +74,7 @@ def writeJSON(data, FILENAME):
     with open(FILENAME, "w+", encoding='utf-8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
     
-def matchAff(paper, aff_variants):
+def matchAff(paper):
     for aff in paper['aff']:
         for variant in aff_variants:
             if variant in aff:
