@@ -21,7 +21,8 @@ EVALUATION_FILE = "evaluation_papers.json"
 EVALUATION_LOG_FILE = "evaluation.log"
 DEPURATED_LOG_FILE = "depurated.log"
 EVENTS_LOG_FILE = "consolidated_events.log"
-CONSOLIDATE_FILE = "irya_papers.json"
+AUTHOR_CONSOLIDATE_FILE = "author_papers.json"
+AFF_CONSOLIDATE_FILE = "aff_papers.json"
 DESCARTED_FILE = "descarted.json"
 
 # Extract args into vars
@@ -68,19 +69,25 @@ if S_MODE == "--author":
                             consolidated_papers[bibcode] = paper
                         
                         #Create keys if not exists
+                        if 'author_owner' not in consolidated_papers[bibcode].keys():
+                            consolidated_papers[bibcode]['author_owner'] = []
                         if 'author_siiaa' not in consolidated_papers[bibcode].keys():
                             consolidated_papers[bibcode]['author_siiaa'] = []
-                        if 'author_mark' not in consolidated_papers[bibcode].keys():
-                            consolidated_papers[bibcode]['author_mark'] = []   
+                        if 'author_irya' not in consolidated_papers[bibcode].keys():
+                            consolidated_papers[bibcode]['author_irya'] = []   
+                            
+                        #add id user owner for local authors to be marked in formated data
+                        owner_id = adsfunctions.markAuthor(paper['author'], evaluated_paper['match_author'][0])
+                        if owner_id >= 0 and owner_id not in consolidated_papers[bibcode]['author_owner']:
+                            consolidated_papers[bibcode]['author_owner'].append(owner_id)
                             
                         #add id for siiaa user owners
                         if int(id) not in consolidated_papers[bibcode]['author_siiaa']:
                             consolidated_papers[bibcode]['author_siiaa'].append(int(id))
                         
-                        #add index for local authors to be marked in strong
-                        mark_id = adsfunctions.markAuthor(paper['author'], evaluated_paper['match_author'][0])
-                        if mark_id >= 0 and mark_id not in consolidated_papers[bibcode]['author_mark']:
-                            consolidated_papers[bibcode]['author_mark'].append(mark_id)
+                        #create list of IRyA authors to be marked
+                        aff_author_list = adsfunctions.markAuthorAff(paper)
+                        consolidated_papers[bibcode]['author_irya'] = aff_author_list
                         
                         evaluation_log.write(f"{id}\t\t{bibcode}\t{evaluated_paper['value']}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
                     
@@ -107,20 +114,27 @@ if S_MODE == "--author":
                             consolidated_papers[bibcode] = paper
                             
                         #Create keys if not exists
+                        if 'author_owner' not in consolidated_papers[bibcode].keys():
+                            consolidated_papers[bibcode]['author_owner'] = []
                         if 'author_siiaa' not in consolidated_papers[bibcode].keys():
                             consolidated_papers[bibcode]['author_siiaa'] = []
-                        if 'author_mark' not in consolidated_papers[bibcode].keys():
-                            consolidated_papers[bibcode]['author_mark'] = []
+                        if 'author_irya' not in consolidated_papers[bibcode].keys():
+                            consolidated_papers[bibcode]['author_irya'] = []
+                            
+                        
+                        #add id user owner for local authors to be marked in formated data
+                        owner_id = adsfunctions.markAuthor(paper['author'], evaluated_paper['match_author'][0])
+                        if owner_id >= 0 and owner_id not in consolidated_papers[bibcode]['author_owner']:
+                            consolidated_papers[bibcode]['author_owner'].append(owner_id)
                             
                         #add id for siiaa user owners
                         if int(id) not in consolidated_papers[bibcode]['author_siiaa']:
                             consolidated_papers[bibcode]['author_siiaa'].append(int(id))
                         
-                        #add index for local authors to be marked in strong
-                        print(evaluated_paper['match_author'])
-                        mark_id = adsfunctions.markAuthor(paper['author'], evaluated_paper['match_author'][0])
-                        if mark_id >= 0 and mark_id not in consolidated_papers[bibcode]['author_mark']:
-                            consolidated_papers[bibcode]['author_mark'].append(mark_id)
+                        #create list of IRyA authors to be marked
+                        aff_author_list = adsfunctions.markAuthorAff(paper)
+                        consolidated_papers[bibcode]['author_irya'] = aff_author_list
+                        
                         evaluation_log.write(f"{id}\t\t{bibcode}\t{evaluated_paper['value']}\t{evaluated_paper['evaluation']}\t{evaluated_paper['match_author']}\t{evaluated_paper['author']}\t{evaluated_paper['match_orcid']}\t{evaluated_paper['orcid_user']}\t{evaluated_paper['aff']}\n")
                         
                     #if paper is dismissed then
@@ -133,7 +147,7 @@ if S_MODE == "--author":
         evaluation_papers[id] = evaluated_papers_author
     adsfunctions.writeJSON(evaluation_papers, f"{WORKDIR}/{EVALUATION_FILE}")
     adsfunctions.writeJSON(descarted_papers, f"{WORKDIR}/{DESCARTED_FILE}")
-    adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/{CONSOLIDATE_FILE}")
+    adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/{AUTHOR_CONSOLIDATE_FILE}")
 elif S_MODE == "--aff":
     #Read everyfile in WORKDIR/aff
     for filename in os.listdir(f"{WORKDIR}/aff"):
@@ -146,12 +160,12 @@ elif S_MODE == "--aff":
                 #Create keys if not exists
                 if 'author_siiaa' not in consolidated_papers[bibcode].keys():
                     consolidated_papers[bibcode]['author_siiaa'] = []
-                if 'author_mark' not in consolidated_papers[bibcode].keys():
-                    consolidated_papers[bibcode]['author_mark'] = []
+                if 'author_irya' not in consolidated_papers[bibcode].keys():
+                    consolidated_papers[bibcode]['author_irya'] = []
                 
                 #Get aff author list
                 aff_author_list = adsfunctions.markAuthorAff(paper)
-                consolidated_papers[bibcode]['author_mark'] = aff_author_list
+                consolidated_papers[bibcode]['author_irya'] = aff_author_list
                 
                 #realation aff_author - siiaa user
                 siiaa_authors = []
@@ -163,4 +177,4 @@ elif S_MODE == "--aff":
                             siiaa_authors.append(int(id))
                                             
                 consolidated_papers[bibcode]['author_siiaa'] = siiaa_authors
-    adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/aff/{CONSOLIDATE_FILE}")                    
+    adsfunctions.writeJSON(consolidated_papers, f"{WORKDIR}/aff/{AFF_CONSOLIDATE_FILE}")                    

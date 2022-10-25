@@ -1,54 +1,54 @@
 {
-    "04": {
-        "id":"04",
+    "02": {
+        "id":2,
         "orcid": "0000-0002-5456-4472",
         "author": "Arthur, Sarah Jane",
         "y_unam":1992,
         "umbral": 85,
         "umbral_descarte": []
     },
-    "07": {
-        "id":"07",
+    "04": {
+        "id":4,
         "orcid": "0000-0002-6971-5755",
         "author": "Bruzual, Gustavo",
         "y_unam":2010,
         "umbral": 74,
         "umbral_descarte": []
     },
-    "06": {
-        "id":"06",
+    "03": {
+        "id":3,
         "orcid": "0000-0002-1081-9445",
         "author": "Ballesteros-Paredes, Javier",
         "y_unam":2001,
         "umbral": 85,
         "umbral_descarte": []
     },
-    "09": {
-        "id":"09",
+    "06": {
+        "id":6,
         "orcid": "0000-0002-2897-9121",
         "author": "Cervántes-Sodi, Bernardo",
         "y_unam":2015,
         "umbral": 80,
         "umbral_descarte": []
     },
-    "08": {
-        "id":"08",
+    "05": {
+        "id":5,
         "orcid": "0000-0003-2862-5363",
         "author": "Carrasco-Gonzalez, Carlos",
         "y_unam":2013,
         "umbral": 84,
         "umbral_descarte": []
     },
-    "11": {
-        "id":"11",
+    "09": {
+        "id":9,
         "orcid": "",
         "author": "Escalante, Vladimir",
         "y_unam":1981,
         "umbral": 90,
         "umbral_descarte": []
     },
-    "10": {
-        "id":"10",
+    "07": {
+        "id":7,
         "orcid": "0000-0003-3031-8784",
         "author": "Chávez, Ricardo",
         "y_unam":2019,
@@ -56,15 +56,15 @@
         "umbral_descarte": []
     },
     "12": {
-        "id":"12",
+        "id":12,
         "orcid": "0000-0003-1480-4643",
         "author": "Galván-Madrid, Roberto",
         "y_unam":2014,
         "umbral": 80,
         "umbral_descarte": []
     },
-    "05": {
-        "id":"05",
+    "11": {
+        "id":11,
         "orcid": "0000-0002-7042-1965",
         "author": "Fritz, Jacopo",
         "y_unam":2014,
@@ -72,7 +72,7 @@
         "umbral_descarte": []
     },
     "13": {
-        "id":"13",
+        "id":13,
         "orcid": "",
         "author": "Gazol, Adriana",
         "y_unam":1999,
@@ -80,7 +80,7 @@
         "umbral_descarte": []
     },
     "14": {
-        "id":"14",
+        "id":14,
         "orcid": "0000-0003-0516-2968",
         "author": "Gill, Ramandeep",
         "y_unam":2022,
@@ -88,7 +88,7 @@
         "umbral_descarte": []
     },
     "15": {
-        "id":"15",
+        "id":15,
         "orcid": "0000-0003-4714-0636",
         "author": "Gómez, Gilberto Carlos",
         "y_unam":2005,
@@ -100,7 +100,7 @@
         ]
     },
     "16": {
-        "id":"16",
+        "id":16,
         "orcid": "0000-0001-7090-4142",
         "author": "González, Ricardo Francisco",
         "y_unam":2003,
@@ -112,7 +112,7 @@
         ]
     },
     "17": {
-        "id":"17",
+        "id":17,
         "orcid": "0000-0003-1557-4931",
         "author": "González-LopezLira, Rosa Amelia",
         "y_unam":1978,
@@ -120,7 +120,7 @@
         "umbral_descarte": []
     },
     "18": {
-        "id":"18",
+        "id":18,
         "orcid": "0000-0002-2356-8358",
         "author": "González-Martín, Omaira",
         "y_unam":2014,
@@ -128,7 +128,7 @@
         "umbral_descarte": []
     },
     "19": {
-        "id":"19",
+        "id":19,
         "orcid": "0000-0001-6208-9109",
         "author": "Henney, William John",
         "y_unam":1992,
@@ -136,7 +136,7 @@
         "umbral_descarte": []
     },
     "20": {
-        "id":"20",
+        "id":20,
         "orcid": "0000-0002-2640-5917",
         "author": "Jiménez-Andrade, Eric Faustino",
         "y_unam":2022,
@@ -144,7 +144,7 @@
         "umbral_descarte": []
     },
     "21": {
-        "id":"21",
+        "id":21,
         "orcid": "0000-0003-4444-5602",
         "author": "Kurtz, Stanley",
         "y_unam":1995,
@@ -152,7 +152,7 @@
         "umbral_descarte": []
     },
     "22": {
-        "id":"22",
+        "id":22,
         "orcid": "0000-0002-2260-7677",
         "author": "Lizano, Susana",
         "y_unam":1988,
@@ -160,31 +160,31 @@
         "umbral_descarte": []
     },
     "23": {
-        "id":"23",
+        "id":23,
         "orcid": "0000-0002-5635-3345",
         "author": "Loinard, Laurent",
         "y_unam":2000,
         "umbral": 90,
         "umbral_descarte": []
     },
-    "24": {
-        "id":"24",
+    "25": {
+        "id":25,
         "orcid": "0000-0002-9569-9234",
         "author": "Palau, Aina",
         "y_unam":2014,
         "umbral": 84,
         "umbral_descarte": []
     },
-    "25": {
-        "id":"24",
+    "26": {
+        "id":"26",
         "orcid": "0000-0003-1933-4636",
         "author": "Pasetto, Alice",
         "y_unam":2018,
         "umbral": 84,
         "umbral_descarte": []
     },
-    "26": {
-        "id":"26",
+    "27": {
+        "id":"27",
         "orcid": "",
         "author": "Rodríguez, Luis Felipe",
         "umbral": 72,
@@ -193,32 +193,32 @@
             90
         ]
     },
-    "27": {
-        "id":"27",
+    "28": {
+        "id":"28",
         "orcid": "0000-0002-2996-305X",
         "author": "Srinivasan, Sundar",
         "y_unam":2018,
         "umbral": 86,
         "umbral_descarte": []
     },
-    "28": {
-        "id":"28",
+    "29": {
+        "id":"29",
         "orcid": "0000-0002-5406-0813",
         "author": "Toalá, Jesús Alberto",
         "y_unam":2017,
         "umbral": 63,
         "umbral_descarte": []
     },
-    "29": {
-        "id":"29",
+    "30": {
+        "id":"30",
         "orcid": "0000-0002-1424-3543",
         "author": "Vázquez-Semadeni, Enrique",
         "y_unam":1991,
         "umbral": 84,
         "umbral_descarte": []
     },
-    "30": {
-        "id":"30",
+    "31": {
+        "id":"31",
         "orcid": "",
         "author": "Zapata, Luis Alberto",
         "y_unam":2010,
